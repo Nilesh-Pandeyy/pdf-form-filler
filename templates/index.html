@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bulk PDF Form Filler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleUploadType() {
+            const uploadType = document.getElementById('upload_type').value;
+            const singleUploadDiv = document.getElementById('single_upload_div');
+            const bulkUploadDiv = document.getElementById('bulk_upload_div');
+            
+            if (uploadType === 'single') {
+                singleUploadDiv.classList.remove('hidden');
+                bulkUploadDiv.classList.add('hidden');
+            } else {
+                singleUploadDiv.classList.add('hidden');
+                bulkUploadDiv.classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">ReelTor Non Disclosure Form</h1>
+        
+        <form action="/fill-pdf" method="post" enctype="multipart/form-data" class="space-y-4">
+            <div class="mb-4">
+                <label class="block mb-2">Upload Type:</label>
+                <select id="upload_type" name="upload_type" class="w-full p-2 border rounded" onchange="toggleUploadType()">
+                    <option value="single">Single Employee</option>
+                    <option value="bulk">Bulk Upload</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block mb-2">PDF Template:</label>
+                <input type="file" name="input_pdf" required class="w-full p-2 border rounded">
+            </div>
+
+            <div id="single_upload_div">
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block mb-2">Day:</label>
+                        <input type="text" name="day" class="w-full p-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block mb-2">Month:</label>
+                        <select name="month" class="w-full p-2 border rounded">
+                            <option value="">Select Month</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2">Year:</label>
+                        <input type="text" name="year" class="w-full p-2 border rounded">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-2">Current Date:</label>
+                    <input type="date" name="current_date" class="w-full p-2 border rounded">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Company Address:</label>
+                    <input type="text" name="company_address" class="w-full p-2 border rounded">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Employee Name:</label>
+                    <input type="text" name="employee_name" class="w-full p-2 border rounded">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Employee Address:</label>
+                    <input type="text" name="employee_address" class="w-full p-2 border rounded">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Company Representative Name:</label>
+                    <input type="text" name="company_rep_name" class="w-full p-2 border rounded">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Company Representative Designation:</label>
+                    <input type="text" name="designation" class="w-full p-2 border rounded">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Witness Name:</label>
+                    <input type="text" name="witness_name" class="w-full p-2 border rounded">
+                </div>
+            </div>
+
+            <div id="bulk_upload_div" class="hidden">
+                <div>
+                    <label class="block mb-2">Bulk CSV Upload:</label>
+                    <input type="file" name="bulk_csv" accept=".csv" class="w-full p-2 border rounded">
+                </div>
+                <div class="mt-4 bg-blue-100 p-4 rounded">
+                    <h3 class="font-bold mb-2">CSV Format Guide:</h3>
+                    <p>Your CSV should have columns matching the form fields:</p>
+                    <ul class="list-disc list-inside text-sm">
+                        <li>day</li>
+                        <li>month</li>
+                        <li>year</li>
+                        <li>company_address</li>
+                        <li>employee_name</li>
+                        <li>employee_address</li>
+                        <li>company_rep_name</li>
+                        <li>designation</li>
+                        <li>witness_name</li>
+                        <li>current_date (optional)</li>
+                    </ul>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="https://docs.google.com/spreadsheets/d/1m2dCdaKHY3cPYLkkxZzpmE3P1qu8WTyl4S25U5fvlLE/edit?pli=1&gid=0#gid=0" 
+                           target="_blank" 
+                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 inline-block">
+                            View Google Sheets Template
+                        </a>
+                        <a href="/download-sample-csv" 
+                           class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 inline-block">
+                            Download Sample CSV
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4">
+                Fill PDF
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Initialize the page with single upload view
+        toggleUploadType();
+    </script>
+</body>
+</html>

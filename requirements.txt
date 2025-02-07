@@ -1,0 +1,9 @@
+# requirements.txt
+flask==2.0.1
+pdfplumber==0.7.4
+reportlab==4.3.0
+PyPDF2==3.0.1
+pyinstaller==4.5.1
+Werkzeug==2.3.7
+gunicorn==23.0.0
+pandas==2.2.3
