@@ -22,11 +22,22 @@ def index():
 
 @app.route('/fill-pdf', methods=['POST'])
 def process_pdf():
-    # Check if it's a bulk upload or single upload
-    if 'bulk_csv' in request.files:
+    # Check upload type
+    upload_type = request.form.get('upload_type', 'single')
+    
+    # Get the input PDF file
+    input_pdf = request.files['input_pdf']
+    if not input_pdf:
+        return "No PDF template uploaded", 400
+
+    # If it's a bulk upload, process bulk PDF
+    if upload_type == 'bulk':
+        # Check if bulk CSV is present for bulk upload
+        if 'bulk_csv' not in request.files or not request.files['bulk_csv']:
+            return "No CSV file uploaded for bulk processing", 400
         return process_bulk_pdf()
     
-    # Single PDF filling process
+    # Otherwise, process single PDF
     return process_single_pdf()
 
 def process_single_pdf():
@@ -38,7 +49,7 @@ def process_single_pdf():
     # Get form data
     form_data = {
         'day': request.form.get('day', ''),
-        'monthx': request.form.get('month', ''),
+        'monthx': request.form.get('month', ''),  # Changed from 'monthx' to 'month'
         'year': request.form.get('year', ''),
         'company_address': request.form.get('company_address', ''),
         'employee_name': request.form.get('employee_name', ''),
@@ -65,7 +76,6 @@ def process_single_pdf():
     
     # Send the filled PDF back to user
     return send_file(output_path, as_attachment=True, download_name=output_filename)
-
 def process_bulk_pdf():
     # Get the input PDF template
     input_pdf = request.files['input_pdf']
