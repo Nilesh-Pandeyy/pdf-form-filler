@@ -50,7 +50,6 @@ def process_single_pdf():
     form_data = {
         'day': request.form.get('day', ''),
         'monthx': request.form.get('month', ''),  # Changed from 'monthx' to 'month'
-        'year': request.form.get('year', ''),
         'company_address': request.form.get('company_address', ''),
         'employee_name': request.form.get('employee_name', ''),
         'employee_address': request.form.get('employee_address', ''),
