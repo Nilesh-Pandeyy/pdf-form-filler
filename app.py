@@ -116,7 +116,6 @@ def process_bulk_pdf():
                 'designation': row.get('designation', ''),
                 'witness_name': row.get('witness_name', ''),
                 'employee_signature': row.get('employee_name', ''),
-                'witness_signature': row.get('witness_name', ''),
                 'current_date': row.get('current_date', datetime.now().strftime("%d/%m/%Y"))
             }
 
