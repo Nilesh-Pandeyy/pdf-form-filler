@@ -57,8 +57,6 @@ def process_single_pdf():
         'company_rep_name': request.form.get('company_rep_name', ''),
         'designation': request.form.get('designation', ''),
         'witness_name': request.form.get('witness_name', ''),
-        'employee_signature': request.form.get('employee_name', ''),  # Using employee name as signature
-        'witness_signature': request.form.get('witness_name', ''),     # Using witness name as signature
         'current_date': request.form.get('current_date', datetime.now().strftime("%d/%m/%Y"))
     }
     
